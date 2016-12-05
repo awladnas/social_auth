@@ -1,0 +1,10 @@
+=form_for @user, url: user_registration_path do |f|
+ %label Email
+ =f.text_field :email
+ %br
+ %label Token
+ =f.text_field :my_token
+ %br
+ =f.hidden_field :uid
+ =f.hidden_field :provider
+ =f.submit "Go"
