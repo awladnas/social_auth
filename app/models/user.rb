@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook]
+         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   validates :email, presence: true
   validates :my_token, presence: true
@@ -11,7 +11,11 @@ class User < ApplicationRecord
   # attr_accessible :uid, :provider, :my_token
 
   def self.from_omniauth(auth)
-    puts "User#{auth.inspect}"
+    if auth.info
+      auth = auth.info
+    end
+    # puts "User#{auth.inspect}"
+
     # if user
     #   user.email = auth.info.email
     #   user.password = Devise.friendly_token[0,20]
